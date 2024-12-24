@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react"
-import weather from './weather.json'
 function App() {
   const [location,setLocation]=useState()
   const [lat,setlat]=useState(23.7104);
   const [lon,setlon]=useState(90.4074);
-  const [weatherData,setWeatherData]=useState([]);
+  const [weather,setWeather]=useState([]);
   const [date,setdate]=useState('');
   const [id,setid]=useState(0);
   const Location_API_KEY='1a26d94544c2a5640a23c9f6abd7c3df'
@@ -50,7 +49,7 @@ function App() {
           const response = await fetch(url, options);
     	const result = await response.json();
     	console.log("weather",result);
-      setWeatherData(result);
+      setWeather(result);
 
         } catch (error) {
           console.log(error);
@@ -117,17 +116,11 @@ function App() {
         <p className="text-2xl font-semibold ">wind Direction<br></br><span className="text-lg">{weather.data[id].wind_cdir_full}</span></p>
       </div>
       </div>
-       
-    </div>
-  ) : (
-    <p className="text-xl">Loading weather data...</p>
-  )}
-</div>
- <div className="flex flex-col items-center mt-20 pb-10">
+      <div className="flex w-full  md:w-2/3 flex-col items-center justify-center mt-20 pb-10">
     <div className="mb-4">
-      <span className="text-2xl font-semibold border-black border-b-2">Hourly Data</span>
+      <span className="text-2xl font-semibold border-black border-b-2">Time</span>
     </div>
-    <div className="flex w-full overflow-x-auto">
+    <div className="flex w-full overflow-x-auto justify-center ">
     {
       weather.data.map((hourly,index)=>(
         <button
@@ -139,6 +132,12 @@ function App() {
     </div>
  </div>
 
+    </div>
+    
+  ) : (
+    <p className="text-xl">Loading weather data...</p>
+  )}
+</div>
     </div>
   )
 }
